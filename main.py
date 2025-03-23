@@ -9,11 +9,7 @@ initDB_path, model_paths = get_files_path(config.FOLDER_PATH)
 
 db_connections, models = get_data_from_files(initDB_path, model_paths)
 
-print(len(models))
-
 string = convert_data(db_connections, models)
-
-print(len(string))
 
 output_file_path = "output.txt"  # Specify the output file name
 
