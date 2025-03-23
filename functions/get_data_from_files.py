@@ -50,7 +50,9 @@ def get_data_from_files(initDB_path, model_paths):
         pattern = re.search(r"sequelize\.define\(\s*['\"]([^'\"]+)['\"]\s*,\s*({[\s\S]*?})\s*,\s*({[\s\S]*?})?\s*\);", content)
 
         if not pattern:
-            return None  # No match found
+            print(f"Error file: {path}")
+            print("No match found\n")
+            continue  # No match found
         table_name = pattern.group(1)  # Extract table name
         attributes_str = pattern.group(2)  # Extract attributes object
         valid_json = convert_to_valid_json(attributes_str)
@@ -62,9 +64,9 @@ def get_data_from_files(initDB_path, model_paths):
                 "attributes": jsonA
             })
         except json.JSONDecodeError as e:
+            print(f"Error file: {path}")
+            print(f"Error JSON: {valid_json}")
             print(f"Error decoding JSON: {e}")
-            print(f"Invalid JSON: {valid_json}")
-            return None
-
+        
     return db_connections, models
 
