@@ -18,7 +18,7 @@ def get_attributes_string(attributes):
         if value:
               string += "unique, "
 
-  return string[:-2] if len(string) != 0 else ""
+  return f'[{string[:-2]}]' if len(string) != 0 else ""
 
 def convert_data(connection, table_data):
   string = []
@@ -28,7 +28,7 @@ def convert_data(connection, table_data):
     for key, value in table['attributes'].items():
       attributes = get_attributes_string(value)
 
-      row = f'\n\t {key} [{attributes}]'
+      row = f'\n\t {key} {value['type'].replace("DataTypes.", "")} {attributes}'
       table_string += row
     string.append(table_string + "\n}\n\n")
   return string
